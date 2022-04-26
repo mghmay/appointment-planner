@@ -1,20 +1,21 @@
-import React, { useRef } from "react";
+import React from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css"
+import ContactPicker from "../contactPicker/ContactPicker"
 
 export default function AppointmentForm(props) {
   const { 
     contacts,
     title,
+    setTitle,
     rawDate,
     setRawDate,
     handleCheckboxChange,
-    handleChangeTitle,
     handleSubmit
   } = props;
+
   return (
     <>
-      <h1>I'm an appointment form!</h1>
       <form 
         onSubmit={handleSubmit}
       >
@@ -26,32 +27,18 @@ export default function AppointmentForm(props) {
           type="text" 
           id="title"
           name="title"
-          onChange={handleChangeTitle} 
+          onChange={(e) => setTitle(e.target.value)}   
           value={title} 
         />
 
         <p>Who are you going with?</p>
-        {contacts.map((contact) => {
-          return (
-              <div>
-                <input
-                  name={contact.name}
-                  id={contact.name}
-                  type="checkbox"
-                  className="contact-input"
-                  value={contact}
-                  onChange={handleCheckboxChange}
-                  key={contact.id}
-                />
-                <label
-                  htmlFor={contact.name}>
-                  {contact.name}
-                </label>
-                <br />
-              </div>
-            )
-        })}
+        <ContactPicker 
+          name="contact"
+          contacts={contacts}
+          handleCheckboxChange={handleCheckboxChange}
+        />
         <br />
+        
         <label 
           htmlFor="date">
           When is it? (don't forget to pick a time!)
