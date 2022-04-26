@@ -1,23 +1,18 @@
+import React, { useState, useEffect } from "react";
+import { Routes, Route, Navigate, NavLink } from "react-router-dom";
 
-  import React, { useState } from "react";
-  import { Routes, Route, Navigate, NavLink } from "react-router-dom";
+import { AppointmentsPage } from "./containers/appointmentsPage/AppointmentsPage";
+import { ContactsPage } from "./containers/contactsPage/ContactsPage";
+
+import { getNewIdNumber } from "./components/functions/Functions";
+
+const LOCAL_STORAGE_CONTACTS = "appointmentApp.contacts";
+const LOCAL_STORAGE_APPOINTMENTS = "appointmentApp.appointments";
   
-  import { AppointmentsPage } from "./containers/appointmentsPage/AppointmentsPage";
-  import { ContactsPage } from "./containers/contactsPage/ContactsPage";
-
-  import { getNewIdNumber } from "./components/functions/Functions";
-
 function App() {
   
   const [ appointments, setAppointments ] = useState([]);
-  const [ contacts, setContacts] = useState([
-    {
-      "contactName": "Mathew George Henry May",
-      "email": "mghmay@gmail.com",
-      "phone": "07895068818",
-      "id": "835fbf65-0e53-4b66-b7ba-123e960fd90e"
-    }
-  ]);
+  const [ contacts, setContacts] = useState([]);
     
 
   const ROUTES = {
@@ -52,14 +47,30 @@ function App() {
   }
 
   const removeAppointment = (id) => {
-    const filteredAppointments = appointments.filter((appointment => appointment.id !== id))
-    setAppointments(() => filteredAppointments)
+    const filteredAppointments = appointments.filter((appointment => appointment.id !== id));
+    setAppointments(() => filteredAppointments);
   }
 
   const removeContact = (id) => {
-    const filteredContacts = contacts.filter((contact => contact.id !== id))
-    setContacts(() => filteredContacts)
+    const filteredContacts = contacts.filter((contact => contact.id !== id));
+    setContacts(() => filteredContacts);
   }
+  
+  useEffect(() => {
+    const storedAppointments = JSON.parse(localStorage.getItem(LOCAL_STORAGE_APPOINTMENTS));
+    const storedContacts = JSON.parse(localStorage.getItem(LOCAL_STORAGE_CONTACTS));
+    if (storedContacts.length > 0) {
+      setContacts(storedContacts);
+    }
+    if (storedAppointments.length > 0) {
+      setAppointments(storedAppointments);
+    }
+  }, [])
+  
+  useEffect(() => {
+    localStorage.setItem(LOCAL_STORAGE_APPOINTMENTS, JSON.stringify(appointments));
+    localStorage.setItem(LOCAL_STORAGE_CONTACTS, JSON.stringify(contacts));
+  }, [contacts, appointments])
 
   return (
     <>

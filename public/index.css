@@ -6,6 +6,11 @@
   background-color: lightcyan;
 }
 
+body {
+  width: auto;
+  height: auto;
+}
+
 nav > a {
   font-style: normal;
   font-weight: normal;
@@ -47,7 +52,7 @@ input[type="submit"] {
   border-radius: 4px;
   color: #ffffff;
   font-weight: bold;
-  font-size: 14px;
+  font-size: 20px;
   border: none;
   outline: none;
   padding: 10px 0;
@@ -55,6 +60,7 @@ input[type="submit"] {
   font-family: "Open Sans", sans-serif;
   margin-top: 10px;
   margin-bottom: 0px;
+  border-radius: 4px;
 }
 
 
@@ -115,4 +121,6 @@ button {
   align-self: flex-end;
   justify-self: flex-start;
   margin: auto 0;
+  font-size: 25px;
+  border-radius: 4px;
 }
