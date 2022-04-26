@@ -3,9 +3,9 @@ import ContactForm from "../../components/contactForm/ContactForm";
 import TileList from "../../components/tileList/TileList";
 
 export const ContactsPage = ({ contacts, addContact }) => {
-  const [name, setName] = useState(null);
-  const [phone, setPhone] = useState(null);
-  const [email, setEmail] = useState(null);
+  const [contactName, setContactName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -13,20 +13,23 @@ export const ContactsPage = ({ contacts, addContact }) => {
     Add contact info and clear data
     if the contact name is not a duplicate
     */
+    if (contacts.map(contact => contact.contactName.toLowerCase()).includes(contactName.toLowerCase())){ 
+      alert('Contact already exists!')
+      return;      
+    }
+    addContact( contactName, email, phone );
+    setContactName("");
+    setEmail("");
+    setPhone("");
   };
-
-  /*
-  Using hooks, check for contact name in the 
-  contacts array variable in props
-  */
 
   return (
     <div>
       <section>
         <h2>Add Contact</h2> 
         <ContactForm 
-        name={name}
-        setName={setName}
+        contactName={contactName}
+        setContactName={setContactName}
         phone={phone}
         setPhone={setPhone}
         email={email}

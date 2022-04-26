@@ -6,7 +6,7 @@ export default function Tile({ contact, appointment }) {
     {
       contact ? 
         <>
-          <h3>{contact.name}</h3>
+          <h3>{contact.contactName}</h3>
           <p>{contact.phone}</p>
           <p>{contact.email}</p>
         </>

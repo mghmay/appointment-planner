@@ -5,17 +5,12 @@ import { getNewIdNumber, getDateString } from "../../components/functions/Functi
 
 export const AppointmentsPage = ({
   appointments,
-  addAppointments, 
+  addAppointment, 
   contacts}) => {
   
-  const [ title, setTitle ] = useState('');
-    
-  const handleChangeTitle = (e) => {
-    setTitle(e.target.value);
-  }
+  const [ title, setTitle ] = useState("");
 
   const [ attending, setAttending] = useState([]);
-
   const handleCheckboxChange = (e) => {
     if (e.target.checked) {
       setAttending((prev) => ([
@@ -29,35 +24,27 @@ export const AppointmentsPage = ({
     }
   }
 
+
   const [ rawDate, setRawDate ] = useState(new Date());
 
   const [ date, setDate] = useState(null);
-  const [ time, setTime ] = useState(null);
-
   useEffect(() => {
     const newDate = getDateString(rawDate)
     setDate(newDate)
   }, [rawDate])
 
+  const [ time, setTime ] = useState(null);
   useEffect(() => {
     const newTime = rawDate.toTimeString()
     setTime(newTime)
   }, [rawDate])
-  
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const newAppointment = {
-      title: title,
-      attending: attending,
-      date: date,
-      time: time,
-      id: getNewIdNumber()
-    }
-    addAppointments((prev) => ([
-      newAppointment,
-      ...prev
-    ]))
+    addAppointment( title, attending, date, time);
+    setTitle("");
+    setAttending([]);
+    setRawDate(new Date());
   };
 
   return (
@@ -68,7 +55,8 @@ export const AppointmentsPage = ({
           rawDate={rawDate}
           setRawDate={setRawDate}
           contacts={contacts}
-          handleChangeTitle={handleChangeTitle}
+          title={title}
+          setTitle={setTitle}
           handleCheckboxChange={handleCheckboxChange}
           handleSubmit={handleSubmit}
          />

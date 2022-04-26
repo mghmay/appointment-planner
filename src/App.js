@@ -1,8 +1,11 @@
-import React, { useState } from "react";
-import { Switch, Route, Redirect, NavLink } from "react-router-dom";
 
-import { AppointmentsPage } from "./containers/appointmentsPage/AppointmentsPage";
-import { ContactsPage } from "./containers/contactsPage/ContactsPage";
+  import React, { useState } from "react";
+  import { Routes, Route, Navigate, NavLink } from "react-router-dom";
+  
+  import { AppointmentsPage } from "./containers/appointmentsPage/AppointmentsPage";
+  import { ContactsPage } from "./containers/contactsPage/ContactsPage";
+
+  import { getNewIdNumber } from "./components/functions/Functions";
 
 function App() {
   
@@ -12,59 +15,72 @@ function App() {
       attending: ['Bill'],
       date: 20220522,
       time: 1545,
-      id: 34567
+      id: getNewIdNumber()
     },
     {
       title: 'Football match',
       attending: ['Fred', 'Jessy'],
       date: 20220601,
       time: 1200,
-      id: 12345
+      id: getNewIdNumber()
     },
     {
       title: 'Party',
       attending: ['Bill', 'Jessy', 'Nancy'],
       date: 20220724,
       time: 2000,
-      id: 23456
+      id: getNewIdNumber()
     },
   ]);
-  const [ contacts, setContacts] = useState([
-    {
-      name: 'Fred',
-      phone: '01234567123',
-      email: 'Fred@Fred.com',
-      id: 12345
-    },
-    {
-      name: 'Jessy',
-      phone: '01234567120',
-      email: 'Jessy@Jessy.com',
-      id: 23456
-    },
-    {
-      name: 'Bill',
-      phone: '01234567192',
-      email: 'Bill@Bill.com',
-      id: 34567
-    }
-  ]);
+  const [ contacts, setContacts] = useState([{
+    contactName: 'Fred',
+    phone: '01234567123',
+    email: 'Fred@Fred.com',
+    id: getNewIdNumber()
+  },
+  {
+    contactName: 'Jessy',
+    phone: '01234567120',
+    email: 'Jessy@Jessy.com',
+    id: getNewIdNumber()
+  },
+  {
+    contactName: 'Bill',
+    phone: '01234567192',
+    email: 'Bill@Bill.com',
+    id: getNewIdNumber()
+  }
+]);
+    
 
   const ROUTES = {
     CONTACTS: "/contacts",
     APPOINTMENTS: "/appointments",
   };
 
-  const addContact = (contact) => {
+  const addContact = ( contactName, phone, email ) => {
+    const newContact = {
+      contactName,
+      phone,
+      email,
+      id: getNewIdNumber()
+    }
     setContacts((prev) => [
-      contact,
+      newContact,
       ...prev
     ])
   }
 
-  const addAppointment = (appointment) => {
+  const addAppointment = ( title, attending, date, time ) => {
+    const newAppointment = {
+      title,
+      attending,
+      date,
+      time,
+      id: getNewIdNumber()
+    }
     setAppointments((prev) => [
-      appointment,
+      newAppointment,
       ...prev
     ])
   }
@@ -72,30 +88,26 @@ function App() {
   return (
     <>
       <nav>
-        <NavLink to={ROUTES.CONTACTS} activeClassName="active">
+        <NavLink to={ROUTES.CONTACTS} className={({isActive}) => (isActive ? "active" : 'none')}>
           Contacts
         </NavLink>
-        <NavLink to={ROUTES.APPOINTMENTS} activeClassName="active">
-          Appointments
+        <NavLink to={ROUTES.APPOINTMENTS} className={({isActive}) => (isActive ? "active" : 'none')}>
+        Appointments
         </NavLink>
       </nav>
       <main>
-        <Switch>
-          <Route exact path="/">
-            <Redirect to={ROUTES.CONTACTS} />
-          </Route>
-          <Route path={ROUTES.CONTACTS}>
-            <ContactsPage 
-            contacts={contacts} 
-            addContact={addContact}/>
-          </Route>
-          <Route path={ROUTES.APPOINTMENTS}>
-            <AppointmentsPage 
-            contacts={contacts}
-            appointments={appointments} 
-            addAppointments={setAppointments}/>
-          </Route>
-        </Switch>
+        <Routes>
+          <Route path="/" element={<Navigate to={ROUTES.CONTACTS} />} />
+          <Route path={ROUTES.CONTACTS} element={<ContactsPage 
+              contacts={contacts}
+              addContact={addContact} 
+            />} />
+          <Route path={ROUTES.APPOINTMENTS} element={<AppointmentsPage
+              appointments={appointments}
+              addAppointment={addAppointment}
+              contacts={contacts}
+            />} />
+        </Routes>
       </main>
     </>
   );
