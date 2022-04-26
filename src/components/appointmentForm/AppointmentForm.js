@@ -27,7 +27,8 @@ export default function AppointmentForm(props) {
           type="text" 
           id="title"
           name="title"
-          onChange={(e) => setTitle(e.target.value)}   
+          onChange={(e) => setTitle(e.target.value)}  
+          required 
           value={title} 
         />
 
@@ -38,7 +39,7 @@ export default function AppointmentForm(props) {
           handleCheckboxChange={handleCheckboxChange}
         />
         <br />
-        
+
         <label 
           htmlFor="date">
           When is it? (don't forget to pick a time!)

@@ -24,6 +24,7 @@ export default function ContactForm(props){
             id="name"
             name="name"
             onChange={(e) => setContactName(e.target.value)} 
+            required
             value={contactName} 
           />
           <label 

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import AppointmentForm from "../../components/appointmentForm/AppointmentForm"
 import TileList from "../../components/tileList/TileList";
-import { getNewIdNumber, getDateString } from "../../components/functions/Functions"
 
 export const AppointmentsPage = ({
   appointments,
@@ -24,26 +23,12 @@ export const AppointmentsPage = ({
     }
   }
 
-
   const [ rawDate, setRawDate ] = useState(new Date());
-
-  const [ date, setDate] = useState(null);
-  useEffect(() => {
-    const newDate = getDateString(rawDate)
-    setDate(newDate)
-  }, [rawDate])
-
-  const [ time, setTime ] = useState(null);
-  useEffect(() => {
-    const newTime = rawDate.toTimeString()
-    setTime(newTime)
-  }, [rawDate])
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addAppointment( title, attending, date, time);
+    addAppointment( title, attending, rawDate);
     setTitle("");
-    setAttending([]);
     setRawDate(new Date());
   };
 

@@ -9,48 +9,8 @@
 
 function App() {
   
-  const [ appointments, setAppointments ] = useState([
-    {
-      title: 'Meet-up',
-      attending: ['Bill'],
-      date: 20220522,
-      time: 1545,
-      id: getNewIdNumber()
-    },
-    {
-      title: 'Football match',
-      attending: ['Fred', 'Jessy'],
-      date: 20220601,
-      time: 1200,
-      id: getNewIdNumber()
-    },
-    {
-      title: 'Party',
-      attending: ['Bill', 'Jessy', 'Nancy'],
-      date: 20220724,
-      time: 2000,
-      id: getNewIdNumber()
-    },
-  ]);
-  const [ contacts, setContacts] = useState([{
-    contactName: 'Fred',
-    phone: '01234567123',
-    email: 'Fred@Fred.com',
-    id: getNewIdNumber()
-  },
-  {
-    contactName: 'Jessy',
-    phone: '01234567120',
-    email: 'Jessy@Jessy.com',
-    id: getNewIdNumber()
-  },
-  {
-    contactName: 'Bill',
-    phone: '01234567192',
-    email: 'Bill@Bill.com',
-    id: getNewIdNumber()
-  }
-]);
+  const [ appointments, setAppointments ] = useState([]);
+  const [ contacts, setContacts] = useState([]);
     
 
   const ROUTES = {
@@ -58,11 +18,11 @@ function App() {
     APPOINTMENTS: "/appointments",
   };
 
-  const addContact = ( contactName, phone, email ) => {
+  const addContact = ( contactName, email, phone ) => {
     const newContact = {
       contactName,
-      phone,
       email,
+      phone,
       id: getNewIdNumber()
     }
     setContacts((prev) => [
@@ -71,12 +31,11 @@ function App() {
     ])
   }
 
-  const addAppointment = ( title, attending, date, time ) => {
+  const addAppointment = ( title, attending, rawDate ) => {
     const newAppointment = {
       title,
       attending,
-      date,
-      time,
+      rawDate,
       id: getNewIdNumber()
     }
     setAppointments((prev) => [

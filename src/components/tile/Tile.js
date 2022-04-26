@@ -1,4 +1,5 @@
 import React from "react";
+import { getDateString, getTimeString } from "../functions/Functions";
 
 export default function Tile({ contact, appointment }) {
   return (
@@ -14,9 +15,11 @@ export default function Tile({ contact, appointment }) {
           <>
           <h3>{appointment.title}</h3>
           <p>{appointment.attending.join(', ')}</p>
-          <p>{appointment.date + ` - ` + appointment.time}</p>
+          <p>{`${getTimeString(appointment.rawDate)} - ${getDateString(appointment.rawDate)}`}</p>
           </>
     }
     </div>
   );
 };
+
+// getDateString(appointment.date) + ` - ` + getTimeString(appointment.time)
