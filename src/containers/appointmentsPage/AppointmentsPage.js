@@ -5,7 +5,8 @@ import TileList from "../../components/tileList/TileList";
 export const AppointmentsPage = ({
   appointments,
   addAppointment, 
-  contacts}) => {
+  contacts,
+  handleRemoveAppointment}) => {
   
   const [ title, setTitle ] = useState("");
 
@@ -51,7 +52,8 @@ export const AppointmentsPage = ({
         <h2>Appointments</h2>
         <TileList 
           appointments={appointments}
-          isContact={false}  
+          isContact={false} 
+          handleRemoveAppointment={handleRemoveAppointment} 
           />
       </section>
     </div>

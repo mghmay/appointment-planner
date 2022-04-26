@@ -1,27 +1,45 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ContactForm from "../../components/contactForm/ContactForm";
 import TileList from "../../components/tileList/TileList";
 
-export const ContactsPage = ({ contacts, addContact }) => {
+export const ContactsPage = ({ 
+  contacts,
+  addContact, 
+  handleRemoveContact
+  }) => {
   const [contactName, setContactName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
+  const [isDuplicate, setIsDuplicate] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    /*
-    Add contact info and clear data
-    if the contact name is not a duplicate
-    */
-    if (contacts.map(contact => contact.contactName.toLowerCase()).includes(contactName.toLowerCase())){ 
-      alert('Contact already exists!')
-      return;      
+    if (isDuplicate) {
+      alert("This contact already exists!")
+      return;
     }
     addContact( contactName, email, phone );
     setContactName("");
     setEmail("");
     setPhone("");
   };
+
+  useEffect(() => {
+    const checkDuplicate = () => {
+      const find = contacts.find( contact => contact.contactName.toLowerCase() === contactName.toLowerCase())
+      if (find !== undefined) {
+        return true;
+      }
+      return false;
+    }
+    
+    if (checkDuplicate()) {
+      setIsDuplicate(true)
+    } else {
+      setIsDuplicate(false)
+    }
+    console.log(isDuplicate)
+  }, [contacts, contactName, isDuplicate]);
 
   return (
     <div>
@@ -43,6 +61,7 @@ export const ContactsPage = ({ contacts, addContact }) => {
         <TileList 
          contacts={contacts} 
          isContact={true}
+         handleRemoveContact={handleRemoveContact}
          />
       </section>
     </div>

@@ -10,7 +10,14 @@
 function App() {
   
   const [ appointments, setAppointments ] = useState([]);
-  const [ contacts, setContacts] = useState([]);
+  const [ contacts, setContacts] = useState([
+    {
+      "contactName": "Mathew George Henry May",
+      "email": "mghmay@gmail.com",
+      "phone": "07895068818",
+      "id": "835fbf65-0e53-4b66-b7ba-123e960fd90e"
+    }
+  ]);
     
 
   const ROUTES = {
@@ -44,6 +51,16 @@ function App() {
     ])
   }
 
+  const removeAppointment = (id) => {
+    const filteredAppointments = appointments.filter((appointment => appointment.id !== id))
+    setAppointments(() => filteredAppointments)
+  }
+
+  const removeContact = (id) => {
+    const filteredContacts = contacts.filter((contact => contact.id !== id))
+    setContacts(() => filteredContacts)
+  }
+
   return (
     <>
       <nav>
@@ -60,11 +77,13 @@ function App() {
           <Route path={ROUTES.CONTACTS} element={<ContactsPage 
               contacts={contacts}
               addContact={addContact} 
+              handleRemoveContact={removeContact}
             />} />
           <Route path={ROUTES.APPOINTMENTS} element={<AppointmentsPage
               appointments={appointments}
               addAppointment={addAppointment}
               contacts={contacts}
+              handleRemoveAppointment={removeAppointment}
             />} />
         </Routes>
       </main>
