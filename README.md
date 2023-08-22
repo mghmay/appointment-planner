@@ -1,12 +1,12 @@
 # Gad-zucks! An appointment and contact manager
 
-*Do you have too many friends?*
+_Do you have too many friends?_
 
-*Worried you might forget some of their names and/or contact details?*
+_Worried you might forget some of their names and/or contact details?_
 
-*Don't have a phone?*
+_Don't have a phone?_
 
-**Well, look no further than this electrified bonified Reactified event and contact planner!** 
+**Well, look no further than this electrified bonified Reactified event and contact planner!**
 
 ## Gee mister, how will I remember it's Bill's Birthday on Thursday?
 
@@ -32,9 +32,23 @@ I'm so glad you asked!
 2. I would snazzy it up a bit with more CSS.
 3. I would add the ability to contact contacts through the app itself
 
+## Running
+
+It's a react app so you must have node and NPM installed.
+
+To install this app simply run:
+
+```
+npm install
+
+```
+
+Then to run it:
+
+```
+npm start
+```
+
 ## Wow, jee wilikers mister, but how'll I use it if I'm a figment of your imagination?
 
 Ooohh Timmy, that's for the courts to decide!
-
-
-
