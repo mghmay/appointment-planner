@@ -50,4 +50,4 @@ npm start
 
 ## Wow, jee wilikers mister, but how'll I use it if I'm a figment of your imagination?
 
-Ooohh Timmy, that's for the courts to decide!
+Ooohh Timmy, don't you worry about that!
