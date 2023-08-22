@@ -40,7 +40,6 @@ To install this app simply run:
 
 ```
 npm install
-
 ```
 
 Then to run it:
